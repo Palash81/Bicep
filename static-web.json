@@ -1,0 +1,61 @@
+//Static Web ARM Template 
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.12.40.16777",
+      "templateHash": "14729433945693664804"
+    }
+  },
+  "parameters": {
+    "location": {
+      "type": "string",
+      "defaultValue": "eastus2"
+    },
+    "staticSiteName": {
+      "type": "string",
+      "defaultValue": "todo-website"
+    },
+    "repositoryUrl": {
+      "type": "string",
+      "defaultValue": "https://github.com/Palash81/arm-static-website.git"
+    },
+    "repositoryToken": {
+      "type": "string",
+      "defaultValue": "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"
+    },
+    "branch": {
+      "type": "string",
+      "defaultValue": "to-do-list"
+    },
+    "sku": {
+      "type": "object",
+      "defaultValue": {
+        "name": "Free",
+        "tier": "Free"
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Web/staticSites",
+      "apiVersion": "2022-03-01",
+      "name": "[parameters('staticSiteName')]",
+      "location": "[parameters('location')]",
+      "sku": {
+        "name": "[parameters('sku').name]",
+        "tier": "[parameters('sku').tier]"
+      },
+      "properties": {
+        "repositoryUrl": "[parameters('repositoryUrl')]",
+        "repositoryToken": "[parameters('repositoryToken')]",
+        "branch": "[parameters('branch')]",
+        "buildProperties": {
+          "appArtifactLocation": "/"
+        }
+      }
+    }
+  ]
+}
